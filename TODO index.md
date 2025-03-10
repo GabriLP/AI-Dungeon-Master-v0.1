@@ -1,0 +1,5 @@
+- Create Sign In (use email + password)
+- Create Sign Up (receive user email, password etc.)
+- Create a better logo
+- Create a "Learn More" page (maybe redirect to about page?)
+- Remove Contact Us?

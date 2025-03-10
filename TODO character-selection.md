@@ -1,0 +1,6 @@
+- Add logo that redirects to home page
+- Create a function for the "Select" button
+- Create a function for the "Delete" button
+- Fix the layout, it's very basic
+- Make characters clickable
+- More info on the characters

@@ -1,0 +1,4 @@
+- Add logo that redirects to home page
+- Create the Apply page
+- Fix the portrait
+- Figure out a way to distribute points
