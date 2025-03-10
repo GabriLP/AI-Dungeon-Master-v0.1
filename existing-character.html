@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Select Existing Character</title>
+        <link rel="stylesheet" href="main.css">
+        <link rel="icon" href="img/logo.ico" type="image/x-icon">
+    </head>
+    <body>
+        <header id="existing-character-page-header">
+            <h1>Select Your Character</h1>
+
+            <!-- Back Button -->
+            <div id="navigation-buttons" class="character-creation-links">
+                <a href="#" onclick="history.back(); return false;" class="back-link">Back</a>
+            </div>
+            <hr>
+            <h2>Choose a character</h2>
+        </header>
+
+        <main class="existing-characters-container">
+
+            <!-- Character roster/cards -->
+
+            <!-- Wizard example -->
+            <div class="character-container">
+                <div class="character-card">
+                    <div class="character-card-portrait">
+                        <img src="img/wizard_portrait.png" alt="Wizard Portrait">
+                    </div>
+                    <div class="character-card-info">
+                        <h3>Elminster Aumar</h3>
+                        <p><span class="info-label">Race:</span> Human</p>
+                        <p><span class="info-label">Class:</span> Wizard</p>
+                        <p><span class="info-label">Level:</span> 3</p>
+                    </div>
+                </div>
+                <div class="character-card-actions">
+                    <a href="main-page.html" class="select-button">Select</a>
+                    <button class="delete-button">Delete</button>
+                </div>
+            </div>
+            <!-- Fighter Examle -->
+            <div class="character-container">
+                <div class="character-card">
+                    <div class="character-card-portrait">
+                        <img src="img/fighter_portrait.png" alt="Fighter Portrait">
+                    </div>
+                    <div class="character-card-info">
+                        <h3>Glorfindel Losgloriol</h3>
+                        <p><span class="info-label">Race:</span> Elf</p>
+                        <p><span class="info-label">Class:</span> Fighter</p>
+                        <p><span class="info-label">Level:</span> 4</p>
+                    </div>
+                </div>
+                <div class="character-card-actions">
+                    <a href="main-page.html" class="select-button">Select</a>
+                    <button class="delete-button">Delete</button>
+                </div>
+            </div>
+
+            <!-- Rogue example -->
+            <div class="character-container">
+                <div class="character-card">
+                    <div class="character-card-portrait">
+                        <img src="img/rogue_portrait.png" alt="Rogue Portrait">
+                    </div>
+                    <div class="character-card-info">
+                        <h3>Mat Cauthon</h3>
+                        <p><span class="info-label">Race:</span> Human</p>
+                        <p><span class="info-label">Class:</span> Rogue</p>
+                        <p><span class="info-label">Level:</span> 3</p>
+                    </div>
+                </div>
+                <div class="character-card-actions">
+                    <a href="main-page.html" class="select-button">Select</a>
+                    <button class="delete-button">Delete</button>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

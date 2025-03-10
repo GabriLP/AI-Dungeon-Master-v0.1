@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Character Creation</title>
+        <link rel="stylesheet" href="main.css">
+        <link rel="icon" href="img/logo.ico" type="image/x-icon">
+    </head>
+    <body>
+        <header id="character-creation-page-top-header">
+            <h1>Character Creation</h1>
+            <div id="navigation-buttons" class="character-creation-links">
+                <a href="#" onclick="history.back(); return false;" class="back-link">Back</a>
+                <a href="main-page.html">Apply</a>
+            </div>
+            <hr>
+            <h2>Create your hero and embark on an epic adventure!</h2>
+        </header>
+
+        <main class="character-creation-page">
+
+            <!-- Left Column: Basic Info -->
+
+            <div class="character-section">
+                <div class="basic-information">
+                    <h3>Basic Information</h3>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" placeholder="Character Name">
+            
+                    <!-- Class -->
+
+                    <label for="class">Class:</label>
+                    <select id="class">
+                        <option value="fighter">Fighter</option>
+                        <option value="wizard">Wizard</option>
+                        <option value="rogue">Rogue</option>
+                        <option value="ranger">Ranger</option>
+                        <option value="barbarian">Barbarian</option>
+                        <option value="cleric">Cleric</option>
+                        <option value="bard">Bard</option>
+                        <option value="druid">Druid</option>
+                    </select>
+
+                    <!-- Race -->
+
+                    <label for="race">Race:</label>
+                    <select id="race">
+                        <option value="human">Human</option>
+                        <option value="elf">Elf</option>
+                        <option value="dwarf">Dwarf</option>
+                        <option value="gnome">Gnome</option>
+                        <option value="half-orc">Half-Orc</option>
+                    </select>
+            
+                    <label for="background">Background:</label>
+                    <textarea type="text" id="background" placeholder="Enter your character's background..." rows="4"></textarea>
+                </div>
+            </div>
+        
+            <!-- Middle Column: Attributes & Skills -->
+
+            <div class="character-section">
+
+                <!-- Attributes -->
+
+                <!-- TODO: make a point buy system -->
+                <h3>Attributes</h3>
+                <div class="attributes-grid">
+                    <label for="strength">Strength:</label>
+                    <input type="number" id="strength" min="1" max="20">
+                    <label for="dexterity">Dexterity:</label>
+                    <input type="number" id="dexterity" min="1" max="20">
+                    <label for="constitution">Constitution:</label>
+                    <input type="number" id="constitution" min="1" max="20">
+                    <label for="intelligence">Intelligence:</label>
+                    <input type="number" id="intelligence" min="1" max="20">
+                    <label for="wisdom">Wisdom:</label>
+                    <input type="number" id="wisdom" min="1" max="20">
+                    <label for="charisma">Charisma:</label>
+                    <input type="number" id="charisma" min="1" max="20">
+                </div>
+        
+                <!-- Skills -->
+
+                <!-- TODO: make a point buy system -->
+                <h3>Skills</h3>
+                <div class="skills-grid">
+                    <label for="acrobatics">Acrobatics:</label>
+                    <input type="number" id="acrobatics" min="0" max="10">
+                    <label for="animal-handling">Animal Handling:</label>
+                    <input type="number" id="animal-handling" min="0" max="10">
+                    <label for="arcana">Arcana:</label>
+                    <input type="number" id="arcana" min="0" max="10">
+                    <label for="athletics">Athletics:</label>
+                    <input type="number" id="athletics" min="0" max="10">
+                    <label for="deception">Deception:</label>
+                    <input type="number" id="deception" min="0" max="10">
+                    <label for="history">History:</label>
+                    <input type="number" id="history" min="0" max="10">
+                    <label for="insight">Insight:</label>
+                    <input type="number" id="insight" min="0" max="10">
+                    <label for="intimidation">Intimidation:</label>
+                    <input type="number" id="intimidation" min="0" max="10">
+                    <label for="medicine">Medicine:</label>
+                    <input type="number" id="medicine" min="0" max="10">
+                    <label for="perception">Perception:</label>
+                    <input type="number" id="perception" min="0" max="10">
+                </div>
+            </div>
+        
+            <!-- Right Column: Visuals and Summary -->
+             
+            <div class="character-section">
+
+                <!-- Character Portrait -->
+
+                <h3>Character Portrait</h3>
+                <div class="character-portrait">
+                    <img src="placeholder-image.png" alt="Character Portrait">
+                    <button>Upload image</button>
+                </div>
+        
+                <!-- Summary -->
+
+                <h3>Character Summary</h3>
+                <div class="summary-card">
+                    <p><strong>Name:</strong> <span id="summary-name">-</span></p>
+                    <p><strong>Class:</strong> <span id="summary-class">-</span></p>
+                    <p><strong>Race:</strong> <span id="summary-race">-</span></p>
+                    <p><strong>HP:</strong> <span id="summary-hp">-</span></p>
+                    <p><strong>AC:</strong> <span id="summary-ac">-</span></p>
+                    <p><strong>Atk:</strong> <span id="summary-atk">-</span></p>
+                </div>
+            </div>
+        </main>
+                
+
+        <footer>
+            <p>&lt;&lt;&lt; &copy; AI Dungeon Master &gt;&gt;&gt;</p>
+        </footer>
+
+        <!-- TODO: create aqn gear buy system-->
+        <!-- TODO: add money-->
+        <!-- TODO: add a save and reset button-->
+        <!-- TODO: Add a JS script -->
+    </body>
+</html>
