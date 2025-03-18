@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Dungeon Master</title>
+    <link rel="stylesheet" href="../CSS/styles.css">
+    <link rel="icon" href="img/logo.ico" type="image/x-icon">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Character Sheet Panel -->
+        <div id="character-sheet">
+            <h2>Your Character</h2>
+            <div id="character-info">
+                <div class="character-portrait">
+                    <img id="character-portrait" src="../img/fighter_portrait.png" alt="Character Portrait">
+                </div>
+                <div class="stats-container">
+                    <div class="stat">
+                        <label>Name:</label>
+                        <span id="character-name">Adventurer</span>
+                    </div>
+                    <div class="stat">
+                        <label>Class:</label>
+                        <span id="character-class">Fighter</span>
+                    </div>
+                    <div class="stat">
+                        <label>Race:</label>
+                        <span id="character-race">Human</span>
+                    </div>
+                    <div class="stat">
+                        <label>Level:</label>
+                        <span id="character-level">1</span>
+                    </div>
+                    <div class="stat">
+                        <label>Armor Class (AC):</label>
+                        <span id="character-ac">10</span>
+                    </div>
+                    <div class="stat">
+                        <label>Hit Points (HP):</label>
+                        <span id="character-hp">20</span>
+                    </div>
+                    <div class="stat">
+                        <label>Status:</label>
+                        <span id="character-status">Healthy</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Character Actions -->
+            <div class="character-actions">
+                <button id="heal-button" class="action-button">Use Healing Potion</button>
+                <button id="inventory-button" class="action-button">Inventory</button>
+                <button id="rest-button" class="action-button">Rest</button>
+            </div>
+        </div>
+
+        <!-- Game Information Panel -->
+        <div id="game-info">
+            <div class="info-section">
+                <h3>Location</h3>
+                <p id="current-location">Unknown</p>
+            </div>
+
+            <div class="info-section">
+                <h3>Quests</h3>
+                <ul id="quest-log">
+                    <!-- Quests will be added dynamically -->
+                </ul>
+            </div>
+
+            <div class="info-section">
+                <h3>NPCs</h3>
+                <ul id="npc-list">
+                    <!-- NPCs will be added dynamically -->
+                </ul>
+            </div>
+
+            <div class="info-section">
+                <h3>Enemies</h3>
+                <ul id="enemies-list">
+                    <!-- Enemies will be added dynamically -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Game Output -->
+        <div id="output">
+            <p>AI Dungeon Master: Welcome, adventurer! What is your name?</p>
+        </div>
+
+        <!-- User Input Area -->
+        <div id="user-input">
+            <input id="input-box" type="text" placeholder="Type your response here...">
+            <button id="send-button">Send</button>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div id="loading-indicator" class="hidden">
+            <div class="spinner"></div>
+            <p>The Dungeon Master is thinking...</p>
+        </div>
+    </div>
+
+    <!-- Navigation Links -->
+    <div id="navigation-links">
+        <a href="index.html">Home</a>
+        <a href="character-selection.html">Change Character</a>
+    </div>
+
+    <div id="attributes-skills-panel" class="side-panel">
+        <div class="panel-tab">Attributes & Skills</div>
+        <div class="panel-content">
+          <div class="panel-section">
+            <h3>Attributes</h3>
+            <div class="stats-grid">
+              <div class="stat-item">
+                <label>Strength:</label>
+                <span id="attr-strength">10</span>
+              </div>
+              <div class="stat-item">
+                <label>Dexterity:</label>
+                <span id="attr-dexterity">12</span>
+              </div>
+              <div class="stat-item">
+                <label>Constitution:</label>
+                <span id="attr-constitution">14</span>
+              </div>
+              <div class="stat-item">
+                <label>Intelligence:</label>
+                <span id="attr-intelligence">8</span>
+              </div>
+              <div class="stat-item">
+                <label>Wisdom:</label>
+                <span id="attr-wisdom">10</span>
+              </div>
+              <div class="stat-item">
+                <label>Charisma:</label>
+                <span id="attr-charisma">11</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="panel-section">
+            <h3>Skills</h3>
+            <div class="stats-grid">
+              <div class="stat-item">
+                <label>Acrobatics:</label>
+                <span id="skill-acrobatics">2</span>
+              </div>
+              <div class="stat-item">
+                <label>Animal Handling:</label>
+                <span id="skill-animal-handling">0</span>
+              </div>
+              <div class="stat-item">
+                <label>Arcana:</label>
+                <span id="skill-arcana">0</span>
+              </div>
+              <div class="stat-item">
+                <label>Athletics:</label>
+                <span id="skill-athletics">4</span>
+              </div>
+              <div class="stat-item">
+                <label>Deception:</label>
+                <span id="skill-deception">1</span>
+              </div>
+              <div class="stat-item">
+                <label>History:</label>
+                <span id="skill-history">0</span>
+              </div>
+              <div class="stat-item">
+                <label>Insight:</label>
+                <span id="skill-insight">2</span>
+              </div>
+              <div class="stat-item">
+                <label>Intimidation:</label>
+                <span id="skill-intimidation">3</span>
+              </div>
+              <div class="stat-item">
+                <label>Medicine:</label>
+                <span id="skill-medicine">0</span>
+              </div>
+              <div class="stat-item">
+                <label>Perception:</label>
+                <span id="skill-perception">3</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
