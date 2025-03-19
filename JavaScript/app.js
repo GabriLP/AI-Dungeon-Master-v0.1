@@ -6,21 +6,24 @@ import { ViewManager } from './viewManager.js';
 import { AIService } from './aiService.js';
 
 export class GameApp {
-  constructor() {
-    this.characterManager = new CharacterManager();
+  constructor(characterName) {
+    this.characterManager = new CharacterManager(characterName);
     this.aiService = new AIService();
+
+    console.log('AI Initialized: ', this.aiService);  // Log AI initialization
+
     this.gameInProgress = false;
     this.loadingIndicator = null;
     
-    // Initialize with a short delay to ensure DOM is fully loaded
-    setTimeout(() => {
-      this.initializeEventListeners();
-      this.setupUI();
-    }, 100);
+    // // Initialize with a short delay to ensure DOM is fully loaded
+    // setTimeout(() => {
+    //   this.initializeEventListeners();
+    //   this.setupUI();
+    // }, 100);
   }
 
   setupUI() {
-    // Check if we're on the main game page
+    // Check if this is the main game page
     if (document.getElementById('game-container')) {
       this.initializeGame();
     }
@@ -29,6 +32,8 @@ export class GameApp {
   initializeGame() {
     this.gameInProgress = true;
     this.characterManager.initializeCharacter();
+
+    console.log('character initialized: ', this.characterManager.character);  // Log character initialization
     
     // Initialize the AI with the character information
     ViewManager.showLoading('Starting adventure...');
@@ -57,6 +62,10 @@ export class GameApp {
     // Check if we're on a page with the game UI
     const sendButton = document.getElementById('send-button');
     const inputBox = document.getElementById('input-box');
+
+    // Log the buttons
+    console.log('Send Button: ', sendButton);
+    console.log('Input Box: ', inputBox);
     
     if (sendButton && inputBox) {
       sendButton.addEventListener('click', () => this.handleUserInput());
