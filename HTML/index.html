@@ -1,48 +1,299 @@
 <!DOCTYPE html>
 <html language="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>AI Dungeon Master</title>
-        <link rel="stylesheet" href="../CSS/main.css">
-        <link rel="icon" href="../img/logo.ico" type="image/x-icon">
-    </head>
-    <body>
-        <header id="home-page-top-header">
-            <!--
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Dungeon Master</title>
+    <link rel="stylesheet" href="../CSS/landing_styles.css" />
+    <link rel="icon" href="../img/logo.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <header id="home-page-top-header">
+      <!--
             <nav>
                 <a href="index.html">
                     <img src="img/logo.ico" alt="D20 Logo" class="logo">
                 </a>
             </nav>
             -->
-            <div id="auth-links" class="main-page-links">
-                <a href="index.html">
-                    <!-- TODO: Find a better logo -->
-                    <img src="../img/logo.ico" alt="D20 Logo" class="logo">
-                </a>
-                <a href="sign-in.html">Sign In</a>
-                <a href="sign-up.html">Sign Up</a>
-                <a href="contact.html">Contact Us</a>
-                <a href="about.html">About Us</a>
+      <div id="auth-links" class="main-page-links">
+        <a href="index.html">
+          <!-- TODO: Find a better logo -->
+          <img src="../img/logo.ico" alt="D20 Logo" class="logo" />
+        </a>
+        <a href="sign-in.html">Sign In</a>
+        <a href="sign-up.html">Sign Up</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="about.html">About Us</a>
+      </div>
+
+      <hr />
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1>Embark on an Epic AI Adventure Today!</h1>
+          <p>
+            Unleash your imagination with our AI Dungeon Master, where every choice leads to a new adventure. Experience storytelling like never before, tailored just for you.
+          </p>
+          <div class="hero-buttons">
+            <button class="btn-primary">Get Started</button>
+            <button class="btn-text">Learn more</button>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img
+            src="../img/IMG1.jpeg"
+            alt="Fantasy adventurers looking at a magical portal"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+      <div class="container">
+        <div class="feature-intro">
+          <div class="subtitle">Adventure</div>
+          <h2>Unleash Your Imagination with AI-Powered Adventures</h2>
+          <p>
+            Dungeon AI transforms your tabletop RPG experience with intelligent storytelling and dynamic character interactions. Dive into a world where every choice shapes your adventure.
+          </p>
+
+          <ul class="feature-list">
+            <li>
+              <div class="feature-icon purple"></div>
+              <span
+                >Real-time storytelling for limitless adventure possibilities.</span
+              >
+            </li>
+            <li>
+              <div class="feature-icon purple"></div>
+              <span
+                >Customizable campaigns tailored to your unique preferences.</span
+              >
+            </li>
+            <li>
+              <div class="feature-icon purple"></div>
+              <span>Immersive worlds that adapt to your decisions.</span>
+            </li>
+          </ul>
+
+          <div class="feature-buttons">
+            <button class="btn-outline">Explore</button>
+            <button class="btn-text">Join →</button>
+          </div>
+        </div>
+        <div class="feature-image">
+          <img src="../img/IMG2.jpeg" alt="Fantasy doorway with magical light" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+      <div class="container">
+        <h2>Experience the Magic of Dynamic Storytelling in Your Adventures</h2>
+
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <div class="benefit-icon wizard">          
+            <img
+                class="benefit-icon"
+                src="../img/icons/game_wizard.png"
+                alt="Mysterious figure with purple magic"
+              />
             </div>
+            <h3>
+              Meet Unique Characters with AI-Powered NPCs Tailored to Your
+              Journey
+            </h3>
+            <p>
+                Immerse yourself in a world where every choice shapes the narrative.
+            </p>
+            <a href="#" class="learn-more">Learn more →</a>
+          </div>
 
-            <hr>
-
-            <h1><strong>Embark on an Epic AI <br>Adventure Today</strong></h1>
-
-            <h2>Unleash your imagination with our AI Dungeon Master, where every choice leads to a new <br>adventure. Experience storytelling like never before, tailored just for you.</h2>
-            
-            <!--Links-->
-            <div class="main-page-center-links">
-                <a href="character-selection.html">Start</a>
-                <a href="learn-more.html">Learn More</a>
+          <div class="benefit-card">
+            <div class="benefit-icon map">            
+            <img
+                class="benefit-icon"
+                src="../img/icons/game_map.png"
+                alt="Mysterious figure with purple magic"
+              />
             </div>
+            <h3>
+              Create Your Own Quests with Customizable Adventures Just For You
+            </h3>
+            <p>
+                Design your journey with endless possibilities and unique scenarios.
+            </p>
+            <a href="#" class="learn-more">Sign up →</a>
+          </div>
 
-            <!--Images-->
-            <figure class="main-page-images">
-                <img src="../img/main_page_adventurers.png" alt="image">
-            </figure>
-        </header>
-    </body>
-</html>
+          <div class="benefit-card">
+            <div class="benefit-icon sword">
+            <img
+                class="benefit-icon"
+                src="../img/icons/game_sword.png"
+                alt="Mysterious figure with purple magic"
+            />
+            </div>
+            <h3>
+              Engage in Epic Battles with Innovative Game Mechanics and
+              Strategies
+            </h3>
+            <p>
+                Challenge your skills and tactics against formidable foes and allies.
+            </p>
+            <a href="#" class="learn-more">Discover →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Welcome Section -->
+    <section class="welcome">
+      <div class="container">
+        <div class="welcome-image">
+          <img
+            src="../img/IMG3.jpeg"
+            alt="Mysterious figure with purple magic"
+          />
+        </div>
+        <div class="welcome-content">
+          <img src="../img/icons/game_dice.png"</div>
+          <h2>Welcome to Your AI-Powered Adventure</h2>
+          <p>
+            At Dungeon AI, we bring your fantasy stories to life with our innovative AI Dungeon Master. Our mission is to create immersive and engaging experiences that transport you to a world of adventure and imagination.
+          </p>
+          <div class="welcome-buttons">
+            <button class="btn-primary">Learn More</button>
+            <button class="btn-text">Sign Up →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Unlock Section -->
+    <section class="unlock">
+      <div class="container">
+        <div class="unlock-content">
+            <img src="../img/icons/game_mask.png"</div>
+          <h2>
+            Unlock Endless Adventures with Dungeon AI: Your Personalized RPG
+            Experience Awaits!
+          </h2>
+          <p>
+            With Dungeon AI, the possibilities are limitless. Run a world where
+            every decision shapes your unique story. Embark on your epic
+            journey.
+          </p>
+        </div>
+        <div class="unlock-image">
+          <img src="../img/IMG4.jpeg" alt="Person looking at magical portal" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+      <div class="container">
+        <h2>Customer testimonials</h2>
+        <p>Dungeon AI transformed my gaming experience completely!</p>
+
+        <div class="testimonial-grid">
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p class="quote">
+              "I never expected that AI has made adventures with Dungeon AI!"
+            </p>
+            <div class="author">
+              <div class="author-avatar"></div>
+              <div class="author-info">
+                <div class="author-name">John Johnson</div>
+                <div class="author-title">Fantasy Adventure Enthusiast</div>
+              </div>
+            </div>
+            <div class="verified">Verified Purchase</div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p class="quote">
+              "The storytelling is immersive and truly captivating!"
+            </p>
+            <div class="author">
+              <div class="author-avatar"></div>
+              <div class="author-info">
+                <div class="author-name">Sarah Smith</div>
+                <div class="author-title">RPG Player, New York</div>
+              </div>
+            </div>
+            <div class="verified">Verified Purchase</div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p class="quote">"I can't imagine playing without Dungeon AI now!"</p>
+            <div class="author">
+              <div class="author-avatar"></div>
+              <div class="author-info">
+                <div class="author-name">Mark Lee</div>
+                <div class="author-title">Gamer</div>
+              </div>
+            </div>
+            <div class="verified">Verified Purchase</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+      <div class="container">
+        <div class="cta-content">
+          <h2>Embark on Your Epic Journey</h2>
+          <p>
+            Join thousands of adventurers and begin your quest to a world of
+            endless adventures.
+          </p>
+          <div class="cta-buttons">
+            <button class="btn-primary">Get Started</button>
+            <button class="btn-outline">Learn More</button>
+          </div>
+        </div>
+        <div class="cta-image">
+          <img
+            src="../img/IMG5.jpeg"
+            alt="Fantasy landscape with magical beam"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">Logo</div>
+        
+            <div class="footer-nav">
+                <a href="#">Adventure Awaits</a>
+                <a href="#">Join Us</a>
+                <a href="#">Get Started</a>
+                <a href="#">Game Masters</a>
+                <a href="#">Explore Worlds</a>
+            </div>
+        
+            <hr class="footer-divider">
+        
+            <div class="footer-bottom">
+                <p>© 2025 Dungeon AI. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookies Settings</a>
+                </div>
+            </div>
+        </div>
+    </footer>
