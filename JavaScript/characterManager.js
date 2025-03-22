@@ -9,13 +9,42 @@ export class CharacterManager {
   }
 
   initializeCharacter() {
-    // Check if there's a selected character in localStorage
-    const selectedCharacterId = localStorage.getItem('selectedCharacterId');
-    if (selectedCharacterId) {
-      this.loadCharacter(selectedCharacterId);
+    // Check if there's new character data from creation page
+    const newCharacterData = localStorage.getItem('newCharacterData');
+
+    console.log("Looking for a new character data: ", newCharacterData);
+    
+    if (newCharacterData) {
+      try{
+        // Pare the char data
+        const characterData = JSON.parse(newCharacterData);
+
+        // create a new char with the data
+        this.character = this.createCharacter(characterData);
+
+        // Select him if it exists
+        if (this.character && this.character.id){
+          this.selectCharacter(this.character.id);
+        }
+
+        console.log("Created a new character from data: ", this.character);
+
+        // clear temp character data
+        localStorage.removeItem('newCharacterData');
+      } catch(error){
+          console.error("Error creating character from data:", error);
+          // Fall back to default character
+          this.character = { ...DEFAULT_CHARACTER, name: "Adventurer", class: "Fighter", race: "Human", level: 1 };
+        }
     } else {
-      // If no selected character, use the default character
-      this.character = { ...DEFAULT_CHARACTER, name: "Adventurer", class: "Fighter", race: "Human", level: 1 };
+      // Check if there's a selected character in localStorage
+      const selectedCharacterId = localStorage.getItem('selectedCharacterId');
+      if (selectedCharacterId) {
+        this.loadCharacter(selectedCharacterId);
+      } else {
+        // If no selected character, use the default character
+        this.character = { ...DEFAULT_CHARACTER, name: "Adventurer", class: "Fighter", race: "Human", level: 1 };
+      }
     }
     
     // Update the UI with character information
@@ -75,6 +104,7 @@ export class CharacterManager {
     const hpElement = document.getElementById('character-hp');
     const acElement = document.getElementById('character-ac');
     const statusElement = document.getElementById('character-status');
+    const portraitElement = document.getElementById('character-portrait');
     
     if (nameElement) nameElement.textContent = this.character.name;
     if (classElement) classElement.textContent = this.character.class;
@@ -82,6 +112,16 @@ export class CharacterManager {
     if (levelElement) levelElement.textContent = this.character.level;
     if (hpElement) hpElement.textContent = `${this.character.currentHP}/${this.character.maxHP}`;
     if (acElement) acElement.textContent = this.character.ac;
+
+    // Update portrait based on character class
+    if (portraitElement) {
+      const characterClass = this.character.class.toLowerCase();
+      portraitElement.src = `../img/${characterClass}_portrait.png`;
+      // Fallback if image doesn't exist
+      portraitElement.onerror = function() {
+        this.src = "../img/fighter_portrait.png";
+      };
+    }
     
     if (statusElement) {
       statusElement.textContent = this.character.status;
@@ -94,6 +134,37 @@ export class CharacterManager {
         statusElement.classList.add('critical');
       } else if (this.character.status === 'Wounded') {
         statusElement.classList.add('wounded');
+      }
+    }
+
+    // Update attributes if they exist
+    const attributes = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
+    attributes.forEach(attr => {
+      const element = document.getElementById(`attr-${attr}`);
+      if (element && this.character[attr] !== undefined) {
+        element.textContent = this.character[attr];
+      }
+    });
+    
+    // Update skills if they exist
+    if (this.character.skills) {
+      const skillElements = {
+        acrobatics: document.getElementById('skill-acrobatics'),
+        animalHandling: document.getElementById('skill-animal-handling'),
+        arcana: document.getElementById('skill-arcana'),
+        athletics: document.getElementById('skill-athletics'),
+        deception: document.getElementById('skill-deception'),
+        history: document.getElementById('skill-history'),
+        insight: document.getElementById('skill-insight'),
+        intimidation: document.getElementById('skill-intimidation'),
+        medicine: document.getElementById('skill-medicine'),
+        perception: document.getElementById('skill-perception')
+      };
+      
+      for (const [skill, element] of Object.entries(skillElements)) {
+        if (element && this.character.skills[skill] !== undefined) {
+          element.textContent = this.character.skills[skill];
+        }
       }
     }
   }
@@ -112,7 +183,27 @@ export class CharacterManager {
       ac: characterData.ac || DEFAULT_CHARACTER.ac,
       maxHP: characterData.maxHP || DEFAULT_CHARACTER.maxHP,
       currentHP: characterData.maxHP || DEFAULT_CHARACTER.maxHP,
-      status: "Healthy"
+      status: "Healthy",
+      // Add attributes
+      strength: characterData.strength || 10,
+      dexterity: characterData.dexterity || 10,
+      constitution: characterData.constitution || 10,
+      intelligence: characterData.intelligence || 10,
+      wisdom: characterData.wisdom || 10,
+      charisma: characterData.charisma || 10,
+      // Add skills
+      skills: characterData.skills || {
+        acrobatics: 0,
+        animalHandling: 0,
+        arcana: 0,
+        athletics: 0,
+        deception: 0,
+        history: 0,
+        insight: 0,
+        intimidation: 0,
+        medicine: 0,
+        perception: 0
+      }
     };
     
     // Add the new character to the characters array

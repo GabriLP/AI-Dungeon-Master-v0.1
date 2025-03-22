@@ -9,6 +9,88 @@
 </head>
 <body>
     <div id="game-container">
+        <!-- Attributes & Skills Panel (moved to left) -->
+        <div id="attributes-skills-panel" class="side-panel left-panel">
+            <div class="panel-tab">Attributes & Skills</div>
+            <div class="panel-content">
+              <div class="panel-section">
+                <h3>Attributes</h3>
+                <div class="stats-grid">
+                  <div class="stat-item">
+                    <label>Strength:</label>
+                    <span id="attr-strength">-</span>
+                  </div>
+                  <div class="stat-item">
+                    <label>Dexterity:</label>
+                    <span id="attr-dexterity">-</span>
+                  </div>
+                  <div class="stat-item">
+                    <label>Constitution:</label>
+                    <span id="attr-constitution">-</span>
+                  </div>
+                  <div class="stat-item">
+                    <label>Intelligence:</label>
+                    <span id="attr-intelligence">-</span>
+                  </div>
+                  <div class="stat-item">
+                    <label>Wisdom:</label>
+                    <span id="attr-wisdom">-</span>
+                  </div>
+                  <div class="stat-item">
+                    <label>Charisma:</label>
+                    <span id="attr-charisma">-</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="panel-section">
+                <h3>Skills</h3>
+                <div class="stats-grid">
+                  <div class="stat-item">
+                    <label>Acrobatics:</label>
+                    <span id="skill-acrobatics">-</span>
+                  </div>
+                  <div class="stat-item">
+                    <label>Animal Handling:</label>
+                    <span id="skill-animal-handling">-</span>
+                  </div>
+                  <div class="stat-item">
+                    <label>Arcana:</label>
+                    <span id="skill-arcana">-</span>
+                  </div>
+                  <div class="stat-item">
+                    <label>Athletics:</label>
+                    <span id="skill-athletics">-</span>
+                  </div>
+                  <div class="stat-item">
+                    <label>Deception:</label>
+                    <span id="skill-deception">-</span>
+                  </div>
+                  <div class="stat-item">
+                    <label>History:</label>
+                    <span id="skill-history">-</span>
+                  </div>
+                  <div class="stat-item">
+                    <label>Insight:</label>
+                    <span id="skill-insight">-</span>
+                  </div>
+                  <div class="stat-item">
+                    <label>Intimidation:</label>
+                    <span id="skill-intimidation">-</span>
+                  </div>
+                  <div class="stat-item">
+                    <label>Medicine:</label>
+                    <span id="skill-medicine">-</span>
+                  </div>
+                  <div class="stat-item">
+                    <label>Perception:</label>
+                    <span id="skill-perception">-</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
         <!-- Character Sheet Panel -->
         <!-- Fighter is hardcided. Make character selection dynamic -->
         <div id="character-sheet">
@@ -20,31 +102,31 @@
                 <div class="stats-container">
                     <div class="stat">
                         <label>Name:</label>
-                        <span id="character-name">Adventurer</span>
+                        <span id="character-name">-</span>
                     </div>
                     <div class="stat">
                         <label>Class:</label>
-                        <span id="character-class">Fighter</span>
+                        <span id="character-class">-</span>
                     </div>
                     <div class="stat">
                         <label>Race:</label>
-                        <span id="character-race">Human</span>
+                        <span id="character-race">-</span>
                     </div>
                     <div class="stat">
                         <label>Level:</label>
-                        <span id="character-level">1</span>
+                        <span id="character-level">-</span>
                     </div>
                     <div class="stat">
                         <label>Armor Class (AC):</label>
-                        <span id="character-ac">10</span>
+                        <span id="character-ac">-</span>
                     </div>
                     <div class="stat">
                         <label>Hit Points (HP):</label>
-                        <span id="character-hp">20</span>
+                        <span id="character-hp">-</span>
                     </div>
                     <div class="stat">
                         <label>Status:</label>
-                        <span id="character-status">Healthy</span>
+                        <span id="character-status">-</span>
                     </div>
                 </div>
             </div>
@@ -109,87 +191,6 @@
         <a href="index.html">Home</a>
         <a href="character-selection.html">Change Character</a>
     </div>
-
-    <div id="attributes-skills-panel" class="side-panel">
-        <div class="panel-tab">Attributes & Skills</div>
-        <div class="panel-content">
-          <div class="panel-section">
-            <h3>Attributes</h3>
-            <div class="stats-grid">
-              <div class="stat-item">
-                <label>Strength:</label>
-                <span id="attr-strength">10</span>
-              </div>
-              <div class="stat-item">
-                <label>Dexterity:</label>
-                <span id="attr-dexterity">12</span>
-              </div>
-              <div class="stat-item">
-                <label>Constitution:</label>
-                <span id="attr-constitution">14</span>
-              </div>
-              <div class="stat-item">
-                <label>Intelligence:</label>
-                <span id="attr-intelligence">8</span>
-              </div>
-              <div class="stat-item">
-                <label>Wisdom:</label>
-                <span id="attr-wisdom">10</span>
-              </div>
-              <div class="stat-item">
-                <label>Charisma:</label>
-                <span id="attr-charisma">11</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="panel-section">
-            <h3>Skills</h3>
-            <div class="stats-grid">
-              <div class="stat-item">
-                <label>Acrobatics:</label>
-                <span id="skill-acrobatics">2</span>
-              </div>
-              <div class="stat-item">
-                <label>Animal Handling:</label>
-                <span id="skill-animal-handling">0</span>
-              </div>
-              <div class="stat-item">
-                <label>Arcana:</label>
-                <span id="skill-arcana">0</span>
-              </div>
-              <div class="stat-item">
-                <label>Athletics:</label>
-                <span id="skill-athletics">4</span>
-              </div>
-              <div class="stat-item">
-                <label>Deception:</label>
-                <span id="skill-deception">1</span>
-              </div>
-              <div class="stat-item">
-                <label>History:</label>
-                <span id="skill-history">0</span>
-              </div>
-              <div class="stat-item">
-                <label>Insight:</label>
-                <span id="skill-insight">2</span>
-              </div>
-              <div class="stat-item">
-                <label>Intimidation:</label>
-                <span id="skill-intimidation">3</span>
-              </div>
-              <div class="stat-item">
-                <label>Medicine:</label>
-                <span id="skill-medicine">0</span>
-              </div>
-              <div class="stat-item">
-                <label>Perception:</label>
-                <span id="skill-perception">3</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
     <script type="module" src="../JavaScript/app.js"></script>
 </body>

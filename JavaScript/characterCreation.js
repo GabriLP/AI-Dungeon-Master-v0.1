@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const nameInput = document.getElementById('name');
   const classSelect = document.getElementById('class');
   const raceSelect = document.getElementById('race');
-  const backgroundInput = document.getElementById('background');
+  //const backgroundInput = document.getElementById('background');
   
   // Get attribute inputs
   const strengthInput = document.getElementById('strength');
@@ -18,6 +18,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const intelligenceInput = document.getElementById('intelligence');
   const wisdomInput = document.getElementById('wisdom');
   const charismaInput = document.getElementById('charisma');
+
+  //Get skills
+  const acrobaticsInput = document.getElementById('acrobatics');
+  const animalHandlingInput = document.getElementById('animal-handling');
+  const arcanaInput = document.getElementById('arcana');
+  const athleticsInput = document.getElementById('athletics');
+  const deceptionInput = document.getElementById('deception');
+  const historyInput = document.getElementById('history');
+  const insightInput = document.getElementById('insight');
+  const intimidationInput = document.getElementById('intimidation');
+  const medicineInput = document.getElementById('medicine');
+  const perceptionInput = document.getElementById('perception');
   
   // Get summary elements
   const summaryName = document.getElementById('summary-name');
@@ -28,37 +40,69 @@ document.addEventListener('DOMContentLoaded', () => {
   const summaryAtk = document.getElementById('summary-atk');
   
   // Set default values
-  setDefaultValues();
+  const defaults = {
+    strength: 10, dexterity: 10, constitution: 10, 
+    intelligence: 10, wisdom: 10, charisma: 10,
+    acrobatics: 0, animalHandling: 0, arcana: 0,
+    athletics: 0, deception: 0, history: 0,
+    insight: 0, intimidation: 0, medicine: 0, perception: 0
+  };
+
+  strengthInput.value = defaults.strength;
+  dexterityInput.value = defaults.dexterity;
+  constitutionInput.value = defaults.constitution;
+  intelligenceInput.value = defaults.intelligence;
+  wisdomInput.value = defaults.wisdom;
+  charismaInput.value = defaults.charisma;
   
-  // Add event listeners to update summary
+  acrobaticsInput.value = defaults.acrobatics;
+  animalHandlingInput.value = defaults.animalHandling;
+  arcanaInput.value = defaults.arcana;
+  athleticsInput.value = defaults.athletics;
+  deceptionInput.value = defaults.deception;
+  historyInput.value = defaults.history;
+  insightInput.value = defaults.insight;
+  intimidationInput.value = defaults.intimidation;
+  medicineInput.value = defaults.medicine;
+  perceptionInput.value = defaults.perception;
+  
+  // Update summary when inputs change
+  function updateSummary() {
+    summaryName.textContent = nameInput.value || "-";
+    summaryClass.textContent = classSelect.value || "-";
+    summaryRace.textContent = raceSelect.value || "-";
+
+    // TODO: Modifiers
+    // // Calculate HP based on constitution (simple formula)
+    // const conMod = Math.floor((parseInt(constitutionInput.value) - 10) / 2);
+    // let baseHP = 10; // Default base HP
+
+    // //TODO: Set some base HP for classes here
+
+    // const hp = baseHP + conMod;
+    // summaryHP.textContent = hp > 0 ? hp : 1; // Minimum HP is 1
+    
+    // // Calculate AC based on dexterity
+    // const dexMod = Math.floor((parseInt(dexterityInput.value) - 10) / 2);
+    // summaryAC.textContent = 10 + dexMod;
+    
+    // // Calculate attack bonus based on strength
+    // const strMod = Math.floor((parseInt(strengthInput.value) - 10) / 2);
+    // summaryAtk.textContent = strMod >= 0 ? `+${strMod}` : strMod;
+  }
+
+  // Add event listeners to all inputs
   nameInput.addEventListener('input', updateSummary);
   classSelect.addEventListener('change', updateSummary);
   raceSelect.addEventListener('change', updateSummary);
-  constitutionInput.addEventListener('input', updateSummary);
-  dexterityInput.addEventListener('input', updateSummary);
   strengthInput.addEventListener('input', updateSummary);
-  
-  // Add event listener to Apply button
-  const applyButton = document.querySelector('a[href="main-page.html"]');
-  if (applyButton) {
-    applyButton.addEventListener('click', function(e) {
-      e.preventDefault();
-      createCharacter();
-    });
-  }
-  
-  function setDefaultValues() {
-    // Set default values for attributes
-    strengthInput.value = 10;
-    dexterityInput.value = 10;
-    constitutionInput.value = 10;
-    intelligenceInput.value = 10;
-    wisdomInput.value = 10;
-    charismaInput.value = 10;
-    
-    // Update the summary with default values
-    updateSummary();
-  }
+  dexterityInput.addEventListener('input', updateSummary);
+  constitutionInput.addEventListener('input', updateSummary);
+  intelligenceInput.addEventListener('input', updateSummary);
+  wisdomInput.addEventListener('input', updateSummary);
+  charismaInput.addEventListener('input', updateSummary);
+
+  updateSummary();
   
   function updateSummary() {
     // Update the character summary based on inputs
@@ -76,28 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const constitutionMod = Math.floor((parseInt(constitutionInput.value) - 10) / 2);
     let baseHP = 10; // Default base HP
     
-    // Adjust base HP based on class
-    switch(classSelect.value) {
-      case 'barbarian':
-        baseHP = 12;
-        break;
-      case 'fighter':
-      case 'paladin':
-      case 'ranger':
-        baseHP = 10;
-        break;
-      case 'bard':
-      case 'cleric':
-      case 'druid':
-      case 'rogue':
-        baseHP = 8;
-        break;
-      case 'wizard':
-      case 'sorcerer':
-        baseHP = 6;
-        break;
-    }
-    
     const totalHP = baseHP + constitutionMod;
     summaryHP.textContent = Math.max(1, totalHP); // Minimum HP of 1
     
@@ -111,34 +133,52 @@ document.addEventListener('DOMContentLoaded', () => {
     const attackBonus = strMod;
     summaryAtk.textContent = attackBonus >= 0 ? `+${attackBonus}` : attackBonus;
   }
-  
-  function createCharacter() {
-    // Create a new character based on the inputs
-    const characterData = {
-      name: nameInput.value || "Adventurer",
-      class: classSelect.options[classSelect.selectedIndex].text,
-      race: raceSelect.options[raceSelect.selectedIndex].text,
-      level: 1,
-      background: backgroundInput.value,
-      strength: parseInt(strengthInput.value),
-      dexterity: parseInt(dexterityInput.value),
-      constitution: parseInt(constitutionInput.value),
-      intelligence: parseInt(intelligenceInput.value),
-      wisdom: parseInt(wisdomInput.value),
-      charisma: parseInt(charismaInput.value),
-      // Calculate HP based on constitution
-      maxHP: parseInt(summaryHP.textContent),
-      // Calculate AC based on dexterity
-      ac: parseInt(summaryAC.textContent)
-    };
-    
-    // Create the character in the manager
-    const newCharacter = characterManager.createCharacter(characterData);
-    
-    // Select the character as the active character
-    characterManager.selectCharacter(newCharacter.id);
-    
-    // Redirect to the main game page
-    window.location.href = "main-page.html";
+
+  // Add event listener to Apply button
+  const applyButton = document.querySelector('.character-creation-links a[href="main-page.html"]');
+  if (applyButton) {
+    applyButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Create character data object
+      const characterData = {
+        name: nameInput.value || "Adventurer",
+        class: classSelect.value,
+        race: raceSelect.value,
+        level: 1,
+        ac: parseInt(summaryAC.textContent) || 10,
+        maxHP: parseInt(summaryHP.textContent) || 20,
+        currentHP: parseInt(summaryHP.textContent) || 20,
+        status: "Healthy",
+        
+        // Add attributes
+        strength: parseInt(strengthInput.value) || 10,
+        dexterity: parseInt(dexterityInput.value) || 10,
+        constitution: parseInt(constitutionInput.value) || 10,
+        intelligence: parseInt(intelligenceInput.value) || 10,
+        wisdom: parseInt(wisdomInput.value) || 10,
+        charisma: parseInt(charismaInput.value) || 10,
+        
+        // Add skills
+        skills: {
+          acrobatics: parseInt(acrobaticsInput.value) || 0,
+          animalHandling: parseInt(animalHandlingInput.value) || 0,
+          arcana: parseInt(arcanaInput.value) || 0,
+          athletics: parseInt(athleticsInput.value) || 0,
+          deception: parseInt(deceptionInput.value) || 0,
+          history: parseInt(historyInput.value) || 0,
+          insight: parseInt(insightInput.value) || 0,
+          intimidation: parseInt(intimidationInput.value) || 0,
+          medicine: parseInt(medicineInput.value) || 0,
+          perception: parseInt(perceptionInput.value) || 0
+        }
+      };
+      
+      // Save character data to localStorage
+      localStorage.setItem('newCharacterData', JSON.stringify(characterData));
+      
+      // Navigate to main page
+      window.location.href = 'main-page.html';
+    });
   }
-});
+})

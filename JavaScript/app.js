@@ -6,8 +6,8 @@ import { ViewManager } from './viewManager.js';
 import { AIService } from './aiService.js';
 
 export class GameApp {
-  constructor(characterName) {
-    this.characterManager = new CharacterManager(characterName);
+  constructor() {
+    this.characterManager = new CharacterManager();
     this.aiService = new AIService();
 
     console.log('AI Initialized: ', this.aiService);  // Log AI initialization
@@ -15,11 +15,11 @@ export class GameApp {
     this.gameInProgress = false;
     this.loadingIndicator = null;
     
-    // // Initialize with a short delay to ensure DOM is fully loaded
-    // setTimeout(() => {
-    //   this.initializeEventListeners();
-    //   this.setupUI();
-    // }, 100);
+    // Initialize with a short delay to ensure DOM is fully loaded
+    setTimeout(() => {
+      this.initializeEventListeners();
+      this.setupUI();
+    }, 100);
   }
 
   setupUI() {
@@ -247,5 +247,6 @@ export class GameApp {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  new GameApp();
+  const app = new GameApp();
+
 });

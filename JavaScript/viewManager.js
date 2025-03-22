@@ -10,7 +10,8 @@ export class ViewManager {
     
     const senderElement = document.createElement('span');
     senderElement.classList.add('message-sender');
-    senderElement.textContent = sender;
+    senderElement.textContent = sender + ': ';
+    senderElement.style.fontWeight = 'bold';
     
     const messageElement = document.createElement('div');
     messageElement.classList.add('message-content');
