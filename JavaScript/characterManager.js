@@ -11,43 +11,55 @@ export class CharacterManager {
   initializeCharacter() {
     // Check if there's new character data from creation page
     const newCharacterData = localStorage.getItem('newCharacterData');
-
-    console.log("Looking for a new character data: ", newCharacterData);
+  
+    console.log("Looking for new character data: ", newCharacterData);
     
     if (newCharacterData) {
-      try{
-        // Pare the char data
+      try {
+        // Use the newly created character
         const characterData = JSON.parse(newCharacterData);
-
-        // create a new char with the data
-        this.character = this.createCharacter(characterData);
-
-        // Select him if it exists
-        if (this.character && this.character.id){
-          this.selectCharacter(this.character.id);
-        }
-
-        console.log("Created a new character from data: ", this.character);
-
-        // clear temp character data
+        console.log("Parsed character data:", characterData);
+        
+        // Create a new character with the data
+        this.character = { 
+          ...DEFAULT_CHARACTER,
+          ...characterData,
+          id: Date.now().toString()
+        };
+        
+        // Add to characters array and save
+        this.characters.push(this.character);
+        this.saveCharacters();
+        
+        // Set as selected character
+        localStorage.setItem('selectedCharacterId', this.character.id);
+  
+        console.log("Created and selected character:", this.character);
+  
+        // Clear temp character data
         localStorage.removeItem('newCharacterData');
-      } catch(error){
-          console.error("Error creating character from data:", error);
-          // Fall back to default character
-          this.character = { ...DEFAULT_CHARACTER, name: "Adventurer", class: "Fighter", race: "Human", level: 1 };
-        }
+      } catch(error) {
+        console.error("Error creating character from data:", error);
+        // Fall back to default character
+        this.character = { ...DEFAULT_CHARACTER, name: "Adventurer", class: "Fighter", race: "Human", level: 1 };
+      }
     } else {
       // Check if there's a selected character in localStorage
       const selectedCharacterId = localStorage.getItem('selectedCharacterId');
+      console.log("No new character data, checking for selected character:", selectedCharacterId);
+      
       if (selectedCharacterId) {
-        this.loadCharacter(selectedCharacterId);
+        const loadedCharacter = this.loadCharacter(selectedCharacterId);
+        console.log("Loaded selected character:", loadedCharacter);
       } else {
+        console.log("Using default character");
         // If no selected character, use the default character
         this.character = { ...DEFAULT_CHARACTER, name: "Adventurer", class: "Fighter", race: "Human", level: 1 };
       }
     }
     
     // Update the UI with character information
+    console.log("Updating character display with:", this.character);
     this.updateCharacterDisplay();
     
     return this.character;
@@ -95,7 +107,12 @@ export class CharacterManager {
   
   updateCharacterDisplay() {
     // Update the character sheet display
-    if (!this.character) return;
+    if (!this.character) {
+      console.error("No character to display");
+      return;
+    }
+    
+    console.log("Updating display with character:", this.character);
     
     const nameElement = document.getElementById('character-name');
     const classElement = document.getElementById('character-class');
@@ -106,15 +123,15 @@ export class CharacterManager {
     const statusElement = document.getElementById('character-status');
     const portraitElement = document.getElementById('character-portrait');
     
-    if (nameElement) nameElement.textContent = this.character.name;
-    if (classElement) classElement.textContent = this.character.class;
-    if (raceElement) raceElement.textContent = this.character.race;
-    if (levelElement) levelElement.textContent = this.character.level;
-    if (hpElement) hpElement.textContent = `${this.character.currentHP}/${this.character.maxHP}`;
-    if (acElement) acElement.textContent = this.character.ac;
-
+    if (nameElement) nameElement.textContent = this.character.name || "-";
+    if (classElement) classElement.textContent = this.character.class || "-";
+    if (raceElement) raceElement.textContent = this.character.race || "-";
+    if (levelElement) levelElement.textContent = this.character.level || "-";
+    if (hpElement) hpElement.textContent = `${this.character.currentHP || "-"}/${this.character.maxHP || "-"}`;
+    if (acElement) acElement.textContent = this.character.ac || "-";
+  
     // Update portrait based on character class
-    if (portraitElement) {
+    if (portraitElement && this.character.class) {
       const characterClass = this.character.class.toLowerCase();
       portraitElement.src = `../img/${characterClass}_portrait.png`;
       // Fallback if image doesn't exist
@@ -124,7 +141,7 @@ export class CharacterManager {
     }
     
     if (statusElement) {
-      statusElement.textContent = this.character.status;
+      statusElement.textContent = this.character.status || "Healthy";
       
       // Clear previous status classes
       statusElement.classList.remove('critical', 'wounded');
@@ -136,18 +153,20 @@ export class CharacterManager {
         statusElement.classList.add('wounded');
       }
     }
-
+  
     // Update attributes if they exist
     const attributes = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
     attributes.forEach(attr => {
       const element = document.getElementById(`attr-${attr}`);
-      if (element && this.character[attr] !== undefined) {
-        element.textContent = this.character[attr];
+      if (element) {
+        element.textContent = this.character[attr] || "-";
+        console.log(`Setting ${attr} to:`, this.character[attr]);
       }
     });
     
     // Update skills if they exist
     if (this.character.skills) {
+      console.log("Setting skills:", this.character.skills);
       const skillElements = {
         acrobatics: document.getElementById('skill-acrobatics'),
         animalHandling: document.getElementById('skill-animal-handling'),
@@ -166,6 +185,8 @@ export class CharacterManager {
           element.textContent = this.character.skills[skill];
         }
       }
+    } else {
+      console.warn("Character doesn't have skills object:", this.character);
     }
   }
   
