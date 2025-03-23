@@ -11,15 +11,14 @@ export class GameApp {
     this.aiService = new AIService();
 
     console.log('AI Initialized: ', this.aiService);  // Log AI initialization
+    console.log('Character Manager Initialized');
 
     this.gameInProgress = false;
     this.loadingIndicator = null;
     
-    // Initialize with a short delay to ensure DOM is fully loaded
-    setTimeout(() => {
-      this.initializeEventListeners();
-      this.setupUI();
-    }, 100);
+    // Initialize 
+    this.initializeEventListeners();
+    this.setupUI();
   }
 
   setupUI() {
@@ -143,6 +142,27 @@ export class GameApp {
         this.handleCombat(attackValue, aiMessage);
       } else {
         ViewManager.appendMessage('Dungeon Master', aiMessage);
+      }
+
+      // Handle damage mentioned by AI
+      const damageInfo = CombatSystem.parseDamageInfo(aiMessage);
+      if (damageInfo.damage || damageInfo.currentHP) {
+        // If there is an explicit HP value, use it
+        if (damageInfo.currentHP !== null) {
+          this.characterManager.updateCharacter({
+            currentHP: damageInfo.currentHP,
+            status: this.getStatusFromHP(damageInfo.currentHP, this.characterManager.character.maxHP)
+          });
+        } 
+        // Otherwise, apply the damage amount
+        else if (damageInfo.damage !== null) {
+          const currentCharacter = this.characterManager.character;
+          const newHP = Math.max(0, currentCharacter.currentHP - damageInfo.damage);
+          this.characterManager.updateCharacter({
+            currentHP: newHP,
+            status: this.getStatusFromHP(newHP, currentCharacter.maxHP)
+          });
+        }
       }
       
       // Check for game state changes

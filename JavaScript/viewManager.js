@@ -4,14 +4,14 @@ export class ViewManager {
   static appendMessage(sender, message, className = '') {
     const output = document.getElementById('output');
     if (!output) return;
-
+  
     const messageContainer = document.createElement('div');
     messageContainer.classList.add('message-container');
     
     const senderElement = document.createElement('span');
     senderElement.classList.add('message-sender');
-    senderElement.textContent = sender + ': ';
-    senderElement.style.fontWeight = 'bold';
+    senderElement.textContent = sender + ': '; // Add colon here
+    senderElement.style.fontWeight = 'bold';   // Make it bold
     
     const messageElement = document.createElement('div');
     messageElement.classList.add('message-content');

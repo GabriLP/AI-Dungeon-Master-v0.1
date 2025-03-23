@@ -82,12 +82,28 @@ export class CombatSystem {
     
     if (results.success) {
       element.classList.add(results.critical ? 'critical-hit' : 'damage');
-      element.textContent = `${results.message} You take ${results.damage} damage.`;
+      element.textContent = `${results.message} You deal ${results.damage} damage.`;
     } else {
       element.classList.add('defense');
       element.textContent = results.message;
     }
     
     return element;
+  }
+
+  static parseDamageInfo(message) {
+    // Search for patterns I may get from the AI
+    const damageRegex = /(\d+)\s+(?:\w+\s+)?damage/i;
+    const match = message.match(damageRegex);
+    
+    // Also search for current HP info like "(HP: X/11)"
+    const hpRegex = /\(HP:\s*(\d+)\/(\d+)\)/i;
+    const hpMatch = message.match(hpRegex);
+    
+    return {
+      damage: match ? parseInt(match[1]) : null,
+      currentHP: hpMatch ? parseInt(hpMatch[1]) : null,
+      maxHP: hpMatch ? parseInt(hpMatch[2]) : null
+    };
   }
 }

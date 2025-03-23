@@ -5,7 +5,7 @@ import { AI_CONFIG } from './config.js';
 export class AIService {
   constructor() {
     this.apiEndpoint = AI_CONFIG.ENDPOINT;
-    this.apiKey = AI_CONFIG.API_KEY;
+    this.apiKey = null;
     this.conversationHistory = [];
     this.gameState = {
       environment: "tavern",  // TODO: Dynamically change the environment
@@ -14,6 +14,19 @@ export class AIService {
       quests: [],
       inventory: []
     };
+
+    this.initialize();
+  }
+
+  async initialize() {
+    try {
+      const response = await fetch('/api/config');
+      const config = await response.json();
+      this.apiKey = config.API_KEY;
+      console.log('API configuration loaded');
+    } catch (error) {
+      console.error('Failed to load API configuration:', error);
+    }
   }
 
   initializeGameState(character) {
@@ -46,86 +59,137 @@ export class AIService {
     return this.getAIResponse(initialPrompt, true);
   }
 
-  async getAIResponse(userMessage, isSystemMessage = false) {
-    try {
-      // Prepare the messages array for the API call
-      let messages = [
-        { 
-          role: "system", 
-          content: `You are an experienced Dungeon Master running a fantasy roleplaying game. 
-          
-          IMPORTANT GAME MECHANICS:
-          - The player character is a ${this.gameState.character?.race || "Human"} ${this.gameState.character?.class || "Fighter"} named ${this.gameState.character?.name || "Adventurer"}.
-          - Player AC: ${this.gameState.character?.ac || 14}
-          - Player HP: ${this.gameState.character?.currentHP || 30}/${this.gameState.character?.maxHP || 30}
-          
-          YOUR ROLE AS DM:
-          - Narrate the game world and NPCs' actions/dialogue in a descriptive, engaging style.
-          - Create an immersive fantasy world with interesting characters and scenarios.
-          - Balance combat, exploration, and social interaction.
-          - Only respond as the DM, not as the player character.
-          
-          FORMATTING RULES:
-          - Keep responses concise (3-5 sentences).
-          - When monsters or NPCs attack, include attack rolls in the format (Attack: X) where X is a number between 1-20.
-          - Describe the environment and NPCs' reactions to the player's actions.
-          - Parse dice rolls in the format (1d20+3) and provide the result.
-          
-          GAMEPLAY TIPS:
-          - Introduce challenges appropriate for a level ${this.gameState.character?.level || 1} character.
-          - Reward creative problem-solving.
-          - Maintain a consistent tone and world logic.
-          - Provide clear consequences for player actions.
-          
-          Current game state: The player is in ${this.gameState.environment}.
-          Player health: ${this.gameState.character?.currentHP || 30}/${this.gameState.character?.maxHP || 30}`
-        }
-      ];
-      
-      // Conversation history to maintain context
-      if (this.conversationHistory.length > 0) {
-        messages = [...messages, ...this.conversationHistory];
-      }
-      
-      // Add the current user message
-      if (!isSystemMessage) {
-        this.conversationHistory.push({ role: "user", content: userMessage });
-        messages.push({ role: "user", content: userMessage });
-      } else {
-        messages.push({ role: "system", content: userMessage });
-      }
-      
-      // Limit the conversation history to prevent token limit issues,
-      if (this.conversationHistory.length > 10) {
-        this.conversationHistory = this.conversationHistory.slice(-10);
-      }
+  /* 
+  // getAIResponse is set up for Gemini AI.
+  // For other AIs a different configuration may be required.
+  */
 
-      const response = await fetch(this.apiEndpoint, {
+  async getAIResponse(userMessage, isSystemMessage = false) {
+    if (!this.apiKey) {
+      try {
+        console.log('API key not loaded yet, initializing...');
+        await this.initialize();
+        if (!this.apiKey) {
+          console.error('API key still not available after initialization');
+          throw new Error("Failed to load API key");
+        }
+      } catch (error) {
+        console.error('API key initialization failed:', error);
+        return { 
+          choices: [{ 
+            message: { 
+              content: "Could not connect to the Dungeon Master. Please check your API configuration." 
+            } 
+          }] 
+        };
+      }
+    }
+    try {
+      // Format the system message and conversation history
+      let systemPrompt = `You are an experienced Dungeon Master running a fantasy roleplaying game. 
+        
+      IMPORTANT GAME MECHANICS:
+      - The player character is a ${this.gameState.character?.race || "Human"} ${this.gameState.character?.class || "Fighter"} named ${this.gameState.character?.name || "Adventurer"}.
+      - Player AC: ${this.gameState.character?.ac || 14}
+      - Player HP: ${this.gameState.character?.currentHP || 30}/${this.gameState.character?.maxHP || 30}
+      
+      YOUR ROLE AS DM:
+      - Narrate the game world and NPCs' actions/dialogue in a descriptive, engaging style.
+      - Create an immersive fantasy world with interesting characters and scenarios.
+      - Balance combat, exploration, and social interaction.
+      - Only respond as the DM, not as the player character.
+      
+      FORMATTING RULES:
+      - Keep responses concise (3-5 sentences).
+      - When monsters or NPCs attack, include attack rolls in the format (Attack: X) where X is a number between 1-20.
+      - Describe the environment and NPCs' reactions to the player's actions.
+      - Parse dice rolls in the format (1d20+3) and provide the result.
+      
+      GAMEPLAY TIPS:
+      - Introduce challenges appropriate for a level ${this.gameState.character?.level || 1} character.
+      - Reward creative problem-solving.
+      - Maintain a consistent tone and world logic.
+      - Provide clear consequences for player actions.
+      
+      Current game state: The player is in ${this.gameState.environment}.
+      Player health: ${this.gameState.character?.currentHP || 30}/${this.gameState.character?.maxHP || 30}`;
+  
+      // Format the conversation history for Gemini
+      let conversationContent = this.conversationHistory.map(msg => {
+        if (msg.role === "user") {
+          return `Player: ${msg.content}`;
+        } else if (msg.role === "assistant") {
+          return `DM: ${msg.content}`;
+        }
+        return `${msg.role}: ${msg.content}`;
+      }).join("\n\n");
+  
+      // Add the current message
+      let currentMessage = isSystemMessage 
+        ? userMessage 
+        : `Player: ${userMessage}`;
+  
+      // Combine everything into the full prompt
+      let fullPrompt = `${systemPrompt}\n\n${conversationContent ? conversationContent + "\n\n" : ""}${currentMessage}\n\nDM:`;
+  
+      // Set up the request body for Gemini API
+      const requestBody = {
+        contents: [
+          {
+            parts: [
+              { text: fullPrompt }
+            ]
+          }
+        ],
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 1024
+        }
+      };
+  
+      // Add API key as query parameter
+      const apiUrl = `${this.apiEndpoint}?key=${this.apiKey}`;
+  
+      const response = await fetch('api/ai', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.apiKey}`
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          model: AI_CONFIG.MODEL,
-          messages: messages
-        })
+        body: JSON.stringify(requestBody)
       });
-
+  
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorText = await response.text();
+        throw new Error(`HTTP error! status: ${response.status}, details: ${errorText}`);
       }
       
       const responseData = await response.json();
-      const aiMessage = responseData.choices[0].message.content;
+      
+      // Extract the AI message from Gemini's response format
+      const aiMessage = responseData.candidates?.[0]?.content?.parts?.[0]?.text || "The Dungeon Master is silent for a moment.";
       
       // Add the AI response to the conversation history
+      if (!isSystemMessage) {
+        this.conversationHistory.push({ role: "user", content: userMessage });
+      }
       this.conversationHistory.push({ role: "assistant", content: aiMessage });
+      
+      // Limit the conversation history to prevent token limit issues
+      if (this.conversationHistory.length > 10) {
+        this.conversationHistory = this.conversationHistory.slice(-10);
+      }
       
       // Update game state based on AI response
       this.updateGameState(aiMessage);
       
-      return responseData;
+      // Return in a format compatible with the rest of your code
+      return { 
+        choices: [{ 
+          message: { 
+            content: aiMessage 
+          } 
+        }] 
+      };
     } catch (error) {
       console.error('AI Service Error:', error);
       return { 
