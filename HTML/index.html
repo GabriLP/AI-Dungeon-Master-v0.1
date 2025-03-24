@@ -6,23 +6,47 @@
     <title>AI Dungeon Master</title>
     <link rel="stylesheet" href="../CSS/landing_styles.css" />
     <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-  />
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    />
     <link rel="icon" href="../img/logo.ico" type="image/x-icon" />
   </head>
   <body>
-    <header id="home-page-top-header">
-      <!--
-            <nav>
-                <a href="index.html">
-                    <img src="img/logo.ico" alt="D20 Logo" class="logo">
-                </a>
-            </nav>
-            -->
+    <header class="navbar">
+      <div class="navbar-container">
+        <div class="navbar-logo">
+          <a href="index.html">
+            <img src="../img/logo.png" alt="D20 Logo" class="logo" />
+          </a>
+        </div>
+
+        <nav class="navbar-menu">
+          <ul class="navbar-links">
+            <li><a href="/" class="active">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/pricing">Pricing</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="navbar-auth">
+          <button onclick="navigateTo('sign-in.html')" class="btn btn-outline">
+            Sign In
+          </button>
+          <button
+            class="btn-primary"
+            onclick="navigateTo('character-selection.html')"
+          >
+            Get Started
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!--     <header id="home-page-top-header">
       <div id="auth-links" class="main-page-links">
         <a href="index.html">
-          <!-- TODO: Find a better logo -->
           <img src="../img/logo.ico" alt="D20 Logo" class="logo" />
         </a>
         <a href="sign-in.html">Sign In</a>
@@ -30,21 +54,29 @@
         <a href="contact.html">Contact Us</a>
         <a href="about.html">About Us</a>
       </div>
-
       <hr />
+    </header> -->
+
     <!-- Hero Section -->
     <section class="hero">
       <div class="container">
         <div class="hero-content">
           <h1>Embark on an Epic AI Adventure Today!</h1>
           <p>
-            Unleash your imagination with our AI Dungeon Master, where every choice leads to a new adventure. Experience storytelling like never before, tailored just for you.
+            Unleash your imagination with our AI Dungeon Master, where every
+            choice leads to a new adventure. Experience storytelling like never
+            before, tailored just for you.
           </p>
           <div class="hero-buttons">
-            <a href="character-selection.html">
-              <button class="btn-primary">Get Started</button>
-            </a>
-            <button class="btn-text">Learn more</button>
+            <button
+              class="btn-primary"
+              onclick="navigateTo('character-selection.html')"
+            >
+              Get Started
+            </button>
+            <button class="btn-text" onclick="navigateTo('about.html')">
+              Learn more
+            </button>
           </div>
         </div>
         <div class="hero-image">
@@ -63,20 +95,23 @@
           <div class="subtitle">Adventure</div>
           <h2>Unleash Your Imagination with AI-Powered Adventures</h2>
           <p>
-            Dungeon AI transforms your tabletop RPG experience with intelligent storytelling and dynamic character interactions. Dive into a world where every choice shapes your adventure.
+            Dungeon AI transforms your tabletop RPG experience with intelligent
+            storytelling and dynamic character interactions. Dive into a world
+            where every choice shapes your adventure.
           </p>
-
           <ul class="feature-list">
             <li>
               <div class="feature-icon purple"></div>
               <span
-                >Real-time storytelling for limitless adventure possibilities.</span
+                >Real-time storytelling for limitless adventure
+                possibilities.</span
               >
             </li>
             <li>
               <div class="feature-icon purple"></div>
               <span
-                >Customizable campaigns tailored to your unique preferences.</span
+                >Customizable campaigns tailored to your unique
+                preferences.</span
               >
             </li>
             <li>
@@ -84,14 +119,20 @@
               <span>Immersive worlds that adapt to your decisions.</span>
             </li>
           </ul>
-
           <div class="feature-buttons">
-            <button class="btn-outline">Explore</button>
-            <button class="btn-text">Join →</button>
+            <button class="btn-outline" onclick="navigateTo('explore.html')">
+              Explore
+            </button>
+            <button class="btn-text" onclick="navigateTo('sign-up.html')">
+              Join →
+            </button>
           </div>
         </div>
         <div class="feature-image">
-          <img src="../img/IMG2.jpeg" alt="Fantasy doorway with magical light" />
+          <img
+            src="../img/IMG2.jpeg"
+            alt="Fantasy doorway with magical light"
+          />
         </div>
       </div>
     </section>
@@ -100,11 +141,10 @@
     <section class="benefits">
       <div class="container">
         <h2>Experience the Magic of Dynamic Storytelling in Your Adventures</h2>
-
         <div class="benefits-grid">
           <div class="benefit-card">
-            <div class="benefit-icon wizard">          
-            <img
+            <div class="benefit-icon wizard">
+              <img
                 class="benefit-icon"
                 src="../img/icons/game_wizard.png"
                 alt="Mysterious figure with purple magic"
@@ -115,14 +155,16 @@
               Journey
             </h3>
             <p>
-                Immerse yourself in a world where every choice shapes the narrative.
+              Immerse yourself in a world where every choice shapes the
+              narrative.
             </p>
-            <a href="#" class="learn-more">Learn more →</a>
+            <button class="learn-more" onclick="navigateTo('learn-more.html')">
+              Learn more →
+            </button>
           </div>
-
           <div class="benefit-card">
-            <div class="benefit-icon map">            
-            <img
+            <div class="benefit-icon map">
+              <img
                 class="benefit-icon"
                 src="../img/icons/game_map.png"
                 alt="Mysterious figure with purple magic"
@@ -132,27 +174,32 @@
               Create Your Own Quests with Customizable Adventures Just For You
             </h3>
             <p>
-                Design your journey with endless possibilities and unique scenarios.
+              Design your journey with endless possibilities and unique
+              scenarios.
             </p>
-            <a href="#" class="learn-more">Sign up →</a>
+            <button class="learn-more" onclick="navigateTo('sign-up.html')">
+              Sign up →
+            </button>
           </div>
-
           <div class="benefit-card">
             <div class="benefit-icon sword">
-            <img
+              <img
                 class="benefit-icon"
                 src="../img/icons/game_sword.png"
                 alt="Mysterious figure with purple magic"
-            />
+              />
             </div>
             <h3>
               Engage in Epic Battles with Innovative Game Mechanics and
               Strategies
             </h3>
             <p>
-                Challenge your skills and tactics against formidable foes and allies.
+              Challenge your skills and tactics against formidable foes and
+              allies.
             </p>
-            <a href="#" class="learn-more">Discover →</a>
+            <button class="learn-more" onclick="navigateTo('discover.html')">
+              Discover →
+            </button>
           </div>
         </div>
       </div>
@@ -168,14 +215,21 @@
           />
         </div>
         <div class="welcome-content">
-          <img src="../img/icons/game_dice.png"</div>
+          <img src="../img/icons/game_dice.png" />
           <h2>Welcome to Your AI-Powered Adventure</h2>
           <p>
-            At Dungeon AI, we bring your fantasy stories to life with our innovative AI Dungeon Master. Our mission is to create immersive and engaging experiences that transport you to a world of adventure and imagination.
+            At Dungeon AI, we bring your fantasy stories to life with our
+            innovative AI Dungeon Master. Our mission is to create immersive and
+            engaging experiences that transport you to a world of adventure and
+            imagination.
           </p>
           <div class="welcome-buttons">
-            <button class="btn-primary">Learn More</button>
-            <button class="btn-text">Sign Up →</button>
+            <button class="btn-primary" onclick="navigateTo('about.html')">
+              Learn More
+            </button>
+            <button class="btn-text" onclick="navigateTo('sign-up.html')">
+              Sign Up →
+            </button>
           </div>
         </div>
       </div>
@@ -185,7 +239,7 @@
     <section class="unlock">
       <div class="container">
         <div class="unlock-content">
-            <img src="../img/icons/game_mask.png"</div>
+          <img src="../img/icons/game_mask.png" />
           <h2>
             Unlock Endless Adventures with Dungeon AI: Your Personalized RPG
             Experience Awaits!
@@ -207,7 +261,6 @@
       <div class="container">
         <h2>Customer testimonials</h2>
         <p>Dungeon AI transformed my gaming experience completely!</p>
-
         <div class="testimonial-grid">
           <div class="testimonial-card">
             <div class="stars">★★★★★</div>
@@ -223,7 +276,6 @@
             </div>
             <div class="verified">Verified Purchase</div>
           </div>
-
           <div class="testimonial-card">
             <div class="stars">★★★★★</div>
             <p class="quote">
@@ -238,10 +290,11 @@
             </div>
             <div class="verified">Verified Purchase</div>
           </div>
-
           <div class="testimonial-card">
             <div class="stars">★★★★★</div>
-            <p class="quote">"I can't imagine playing without Dungeon AI now!"</p>
+            <p class="quote">
+              "I can't imagine playing without Dungeon AI now!"
+            </p>
             <div class="author">
               <div class="author-avatar"></div>
               <div class="author-info">
@@ -265,8 +318,15 @@
             endless adventures.
           </p>
           <div class="cta-buttons">
-            <button class="btn-primary">Get Started</button>
-            <button class="btn-outline">Learn More</button>
+            <button
+              class="btn-primary"
+              onclick="navigateTo('character-selection.html')"
+            >
+              Get Started
+            </button>
+            <button class="btn-outline" onclick="navigateTo('about.html')">
+              Learn More
+            </button>
           </div>
         </div>
         <div class="cta-image">
@@ -280,26 +340,34 @@
 
     <!-- Footer -->
     <footer>
-        <div class="container">
-            <div class="footer-logo">Logo</div>
-        
-            <div class="footer-nav">
-                <a href="#">Adventure Awaits</a>
-                <a href="#">Join Us</a>
-                <a href="#">Get Started</a>
-                <a href="#">Game Masters</a>
-                <a href="#">Explore Worlds</a>
-            </div>
-        
-            <hr class="footer-divider">
-        
-            <div class="footer-bottom">
-                <p>© 2025 Dungeon AI. All rights reserved.</p>
-                <div class="footer-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Cookies Settings</a>
-                </div>
-            </div>
+      <div class="container">
+        <div class="footer-logo">
+          <img src="../img/logo.png" alt="D20 Logo" class="logo" />
         </div>
+        <div class="footer-nav">
+          <a href="#">Adventure Awaits</a>
+          <a href="join.html">Join Us</a>
+          <a href="character-selection.html">Get Started</a>
+          <a href="game-masters.html">Game Masters</a>
+          <a href="explore-worlds.html">Explore Worlds</a>
+        </div>
+        <hr class="footer-divider" />
+        <div class="footer-bottom">
+          <p>© 2025 Dungeon AI. All rights reserved.</p>
+          <div class="footer-links">
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-of-service.html">Terms of Service</a>
+            <a href="cookies-settings.html">Cookies Settings</a>
+          </div>
+        </div>
+      </div>
     </footer>
+
+    <!-- JavaScript for Navigation -->
+    <script>
+      function navigateTo(url) {
+        window.location.href = url;
+      }
+    </script>
+  </body>
+</html>
